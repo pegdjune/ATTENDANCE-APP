@@ -24,6 +24,7 @@ class MyApp extends StatelessWidget {
         ),
         useMaterial3: true,
       ),
+      debugShowCheckedModeBanner: false,
       home: const MyHomePage(
         title: '2SND Technologie Register' ,
       
@@ -36,6 +37,7 @@ class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
 
   final String title;
+  
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
@@ -246,7 +248,7 @@ class _LoginPageState extends State<LoginPage> {
                 Container(
                   margin: const EdgeInsets.all(40.0),
                   child:Image.asset('assets/2sndlogo.png'),
-            ),
+                ),
                 TextFormField(
                   controller: _emailController,
                   decoration: const InputDecoration(labelText: 'Email'),

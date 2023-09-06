@@ -4,8 +4,8 @@ import 'package:snd_registre/main.dart';
 
 // ignore: camel_case_types, must_be_immutable, use_key_in_widget_constructors
 class dash extends StatelessWidget{
-
   const dash( {Key? key }) : super(key: key);
+  
   
 
 
@@ -39,10 +39,13 @@ class dash extends StatelessWidget{
     ' Restants' : 50,
   };
 
+  // ignore: prefer_typing_uninitialized_variables
+  var  size , height, width;
 
 
-
-
+  size = MediaQuery.of(context).size;
+  height = size.height ;
+  width = size.width ;
 
     // ignore: prefer_typing_uninitialized_variables
    
@@ -99,7 +102,7 @@ class dash extends StatelessWidget{
             ),
 
             SizedBox(
-              width: 250,
+              width: 200,
               height:240,
               child: SingleChildScrollView(
                 padding: const EdgeInsets.all(15),
@@ -166,20 +169,24 @@ class dash extends StatelessWidget{
         
         SizedBox(
           
-          width: 500,
-          height: 280,
+          width: width+70,
+          // height: 210,
+          height: height/ 3.5,
+          
           
           child: SingleChildScrollView(
-            padding: const EdgeInsets.symmetric(vertical: 40, horizontal: 19),
+            padding: const EdgeInsets.symmetric(vertical: 80, horizontal: 15),
             physics: const BouncingScrollPhysics(),
+            
             scrollDirection: Axis.vertical,
             child : Container(
               color: const Color(0xFFEDEDED),
+              width: 100,
               
               child: SingleChildScrollView(
-                scrollDirection: Axis.vertical,
+                scrollDirection: Axis.horizontal,
                 child: DataTable(
-
+                  
                   columnSpacing: 25,
                   columns: const [
                     DataColumn(label: Text('Date')),
