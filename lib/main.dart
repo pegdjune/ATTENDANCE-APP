@@ -1,10 +1,18 @@
+
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:snd_registre/chat.dart';
 import 'package:snd_registre/dash.dart';
 import 'package:snd_registre/scan.dart';
 
 
+// Future<void> main([i]) async {
+//   runApp(const MyApp());
+// }
+
 void main() {
+  
   runApp(const MyApp());
 }
 
@@ -341,10 +349,16 @@ class _LoginPageState extends State<LoginPage> {
 }
 
 
+// ignore: library_private_types_in_public_api
+final GlobalKey<_DashBoardPageState> classKey = GlobalKey<_DashBoardPageState>();
 
 class DashBoardPage extends StatefulWidget {
-  const DashBoardPage( { Key? key,  required this.user }) : super(key: key);
+  
+  // final Function(int) onselectedChanged;
+  const DashBoardPage( { Key? key,  required this.user,  }) : super(key: key);
   final String user;
+
+ 
   @override
   State<DashBoardPage> createState() => _DashBoardPageState();
 }
@@ -368,12 +382,19 @@ class AttendanceRecord {
   AttendanceRecord(this.date, this.arrivalTime, this.outTime);
 }
 
+
+
 class _DashBoardPageState extends State<DashBoardPage> {
   
+  int _selectedIndex = 0; 
+
+  void handleSelectIndex(int value) {
+    setState(() {
+      _selectedIndex = value;
+    });
+  }
   
-
-
-  int _selectedIndex = 0;
+  
   
 
 
@@ -418,6 +439,7 @@ class _DashBoardPageState extends State<DashBoardPage> {
         child: [
           const dash(),
           const Scan(),
+          const Chat(),
         ][_selectedIndex]
 
       ), 

@@ -1,8 +1,10 @@
-// import 'package:flutter/foundation.dart';
-import 'dart:io';
 
+import 'dart:io';
+import 'package:snd_registre/main.dart';
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-// import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
+import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 // import 'package:barcode_scan2/barcode_scan2.dart' ;
 // import 'package:permission_handler/permission_handler.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
@@ -62,10 +64,8 @@ class _QRcodewidgetState extends State<QRcodewidget> {
             child: QRView(
               key: qrKey, 
               onQRViewCreated: _onQRViewCreated,
-              cameraFacing: CameraFacing.back,
-              onPermissionSet: (controller, permission) {
-                
-              },
+              // cameraFacing: CameraFacing.front,
+            
             
             ),
           
@@ -73,7 +73,10 @@ class _QRcodewidgetState extends State<QRcodewidget> {
           Expanded(
             flex: 1,
             child: Center(
-              child: Text('Resultat : $scanresult'),
+              child: ( scanresult != null )
+                ? Text(
+                    ' Barcode Type: ${describeEnum(scanresult!.format)}  Data: ${scanresult!.code} ')
+                : const Text('Scannez le code'),
             ),
           
           ),
@@ -241,21 +244,29 @@ class _ScanState extends State<Scan> {
                             //   }
                             // });
 
-                            Navigator.push(
-                              context, 
+                            // Navigator.push(
+                            //   context, 
                               
-                              MaterialPageRoute(builder: (context) =>  const QRcodewidget()),
+                            //   MaterialPageRoute(builder: (context) =>  const QRcodewidget()),
                             
-                            );
+                            // );
 
 
                             // FlutterBarcodeScanner.getBarcodeStreamReceiver(
-                            //   "#ff6666", "Annuler", false, ScanMode.DEFAULT)?.listen((barcode) {
+                            //   "#ff6666", "Annuler", true, ScanMode.QR)?.listen((barcode) {
                             //     scanresult = barcode;
-                            //   });
+
+                            // });
 
 
-
+                            scanresult = await FlutterBarcodeScanner.scanBarcode("#244B98", "Annuler", false, ScanMode.QR);
+                            if (kDebugMode) {
+                              print(scanresult);
+                            }
+                            
+                            // DashBoardPage( key: classKey ,user: 'emds',);
+                            classKey.currentState?.handleSelectIndex(0);
+                           
                           }, 
 
 
@@ -301,6 +312,7 @@ class _ScanState extends State<Scan> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           const Text("Lancer le processus pour scanner le code QR "),
+          
           const SizedBox(
             height: 20,
           ),
@@ -338,3 +350,4 @@ class _ScanState extends State<Scan> {
 
 
 }
+
