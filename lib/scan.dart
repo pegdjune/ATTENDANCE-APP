@@ -1,10 +1,12 @@
 // import 'package:flutter/foundation.dart';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 // import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 // import 'package:barcode_scan2/barcode_scan2.dart' ;
 // import 'package:permission_handler/permission_handler.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
-import 'package:simple_barcode_scanner/simple_barcode_scanner.dart';
+// import 'package:simple_barcode_scanner/simple_barcode_scanner.dart';
 // import 'package:mobile_scanner/mobile_scanner.dart';
 
 class QRcodewidget extends StatefulWidget {
@@ -31,6 +33,16 @@ class _QRcodewidgetState extends State<QRcodewidget> {
     });
   }
   
+
+  @override
+  void reassemble() {
+    super.reassemble();
+    if(Platform.isAndroid){
+      controller.pauseCamera();
+    }else if (Platform.isIOS) {
+      controller.resumeCamera();
+    }
+  }
 
   @override
   void dispose(){
@@ -219,22 +231,22 @@ class _ScanState extends State<Scan> {
                             etat = 1;
                             Navigator.of(context).pop();
 
-                            var res = await Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context)=> const SimpleBarcodeScannerPage(),)
-                            );
-                            setState(() {
-                              if(res is String) {
-                                scanresult = res;
-                              }
-                            });
-
-                            // Navigator.push(
-                            //   context, 
-                              
-                            //   MaterialPageRoute(builder: (context) =>  const QRcodewidget()),
-                            
+                            // var res = await Navigator.push(
+                            //   context,
+                            //   MaterialPageRoute(builder: (context)=> const SimpleBarcodeScannerPage(),)
                             // );
+                            // setState(() {
+                            //   if(res is String) {
+                            //     scanresult = res;
+                            //   }
+                            // });
+
+                            Navigator.push(
+                              context, 
+                              
+                              MaterialPageRoute(builder: (context) =>  const QRcodewidget()),
+                            
+                            );
 
 
                             // FlutterBarcodeScanner.getBarcodeStreamReceiver(
