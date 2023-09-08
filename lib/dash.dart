@@ -41,24 +41,28 @@ class dash extends StatelessWidget {
     // ignore: prefer_typing_uninitialized_variables
 
     return Container(
-      color: const Color(0xFFEDEDED),
+      color: const Color(0xFFF0F0F2),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          const Padding(
-            padding: EdgeInsets.all(30),
-            child: Text(
-              'Bonjour ',
-              style: TextStyle(
-                fontSize: 22,
-                fontWeight: FontWeight.w500,
-              ),
-            ),
+          // const Padding(
+          //   padding: EdgeInsets.all(30),
+          //   child: Text(
+          //     'Bonjour ',
+          //     style: TextStyle(
+          //       fontSize: 22,
+          //       fontWeight: FontWeight.w500,
+          //     ),
+          //   ),
+          // ),
+          const SizedBox(
+            height: 40,
           ),
           Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               SizedBox(
-                width: 160,
+                width: 170,
                 height: 250,
                 child: PieChart(
                   dataMap: dataMap,
@@ -88,74 +92,111 @@ class dash extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(
-                width: 200,
-                height: 240,
-                child: SingleChildScrollView(
-                  padding: const EdgeInsets.all(15),
-
-                  // scrollDirection: Axis.vertical,
-                  // shrinkWrap: true,
-                  physics: const BouncingScrollPhysics(),
-                  child: Column(
-                    children: conversations.map((Conversation conversation) {
-                      return ListTile(
-                        contentPadding: const EdgeInsets.symmetric(
-                            vertical: 0, horizontal: 0),
-                        leading: CircleAvatar(
-                          radius: 20,
-                          child: Text(conversation.contactName[0]),
-                        ),
-                        title: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              conversation.contactName,
-                              style: const TextStyle(
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            Text(
-                              conversation.time,
-                              style: const TextStyle(fontSize: 12),
-                            )
-                          ],
-                        ),
-                        subtitle: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              conversation.lastMessage,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                          ],
-                        ),
-                        onTap: () {
-                          // Navfigation vers le messages ou la discussion
-                        },
-                      );
-                    }).toList(),
+              Column(
+                children: [
+                  const Text(
+                    'Discussions Récentes : ',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                    ),
+                    textAlign: TextAlign.start,
                   ),
-                ),
+                  Container(
+                    // color: Colors.white,
+                    margin: const EdgeInsets.only(top: 10),
+                    decoration: const BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                      color: Colors.white,
+                    ),
+                    width: width / 1.8,
+                    child: SizedBox(
+                      width: 200,
+                      height: 240,
+                      child: SingleChildScrollView(
+                        padding: const EdgeInsets.all(15),
+
+                        scrollDirection: Axis.vertical,
+                        // shrinkWrap: true,
+                        physics: const BouncingScrollPhysics(),
+                        child: Column(
+                          children:
+                              conversations.map((Conversation conversation) {
+                            return ListTile(
+                              contentPadding: const EdgeInsets.symmetric(
+                                  vertical: 0, horizontal: 0),
+                              leading: CircleAvatar(
+                                radius: 20,
+                                child: Text(conversation.contactName[0]),
+                              ),
+                              title: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    conversation.contactName,
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  Text(
+                                    conversation.time,
+                                    style: const TextStyle(fontSize: 12),
+                                  )
+                                ],
+                              ),
+                              subtitle: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    conversation.lastMessage,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                ],
+                              ),
+                              onTap: () {
+                                // Navfigation vers le messages ou la discussion
+                              },
+                            );
+                          }).toList(),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ],
           ),
           SizedBox(
-            width: width + 70,
+            height: height / 20,
+          ),
+          const Text(
+            'Jours de Présence au Bureau',
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          SizedBox(
+            width: width - 15,
+            // width: width + 70,
             // height: 210,
+            // height: height / 3.5,
             height: height / 3.5,
 
             child: SingleChildScrollView(
-              padding: const EdgeInsets.symmetric(vertical: 80, horizontal: 15),
+              // padding: const EdgeInsets.symmetric(vertical: 80, horizontal: 15),
+              padding: const EdgeInsets.only(top: 10),
               physics: const BouncingScrollPhysics(),
               scrollDirection: Axis.vertical,
               child: Container(
-                color: Colors.white,
-                width: 100,
+                decoration: const BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.all(Radius.circular(10))),
+                // width: 100,
+                padding: EdgeInsets.only(bottom: height / 30),
                 child: SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
                   child: DataTable(
-                    columnSpacing: 25,
+                    columnSpacing: 40,
                     columns: const [
                       DataColumn(label: Text('Date')),
                       DataColumn(label: Text('Heure de Venue')),
