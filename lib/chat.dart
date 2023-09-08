@@ -3,7 +3,6 @@
 import 'package:flutter/material.dart';
 import 'package:snd_registre/main.dart';
 
-
 class Chat extends StatefulWidget {
   const Chat({super.key});
 
@@ -14,9 +13,6 @@ class Chat extends StatefulWidget {
 class _ChatState extends State<Chat> {
   @override
   Widget build(BuildContext context) {
-
-
-
     final List<Conversation> conversations = [
       Conversation('DG :', 'Oui, bonjour appelle moi', '08:30'),
       Conversation('Angelo :', 'Je vais bien, Merci', 'Hier'),
@@ -32,35 +28,34 @@ class _ChatState extends State<Chat> {
       Conversation('Kyrie :', ' Vous avez de la visite', '10:24'),
     ];
 
-    var  size , height, width;
-
+    var size, height, width;
 
     size = MediaQuery.of(context).size;
-    height = size.height ;
-    width = size.width ;
+    height = size.height;
+    width = size.width;
 
     return Stack(
       children: [
-
         SizedBox(
           width: width,
-          height:height,
+          height: height,
           child: SingleChildScrollView(
             padding: const EdgeInsets.all(15),
-            
+
             // scrollDirection: Axis.vertical,
             // shrinkWrap: true,
             physics: const BouncingScrollPhysics(),
             child: Column(
               children: conversations.map((Conversation conversation) {
                 return ListTile(
-                  contentPadding: const EdgeInsets.symmetric(vertical: 0, horizontal: 0),
+                  contentPadding:
+                      const EdgeInsets.symmetric(vertical: 0, horizontal: 0),
                   leading: CircleAvatar(
                     radius: 20,
                     child: Text(conversation.contactName[0]),
                   ),
                   title: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween ,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
                         conversation.contactName,
@@ -72,53 +67,35 @@ class _ChatState extends State<Chat> {
                         conversation.time,
                         style: const TextStyle(fontSize: 12),
                       )
-
                     ],
                   ),
-                  
                   subtitle: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
                         conversation.lastMessage,
                         overflow: TextOverflow.ellipsis,
-                      
                       ),
-                      
                     ],
                   ),
                   onTap: () {
-
                     // Navfigation vers le messages ou la discussion
-
-
-
                   },
                 );
               }).toList(),
-
             ),
-            
           ),
-          
-
         ),
         Positioned(
           bottom: 16,
           right: 16,
           child: FloatingActionButton(
-            
-            onPressed: (){},
+            onPressed: () {},
             tooltip: 'Nouveau message',
             child: const Icon(Icons.message),
-          ) ,
-        
+          ),
         ),
       ],
     );
-      
-     
-     
-    
   }
 }
